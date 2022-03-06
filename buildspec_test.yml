@@ -1,0 +1,14 @@
+version: 0.1
+phases:
+  pre_build:
+    commands:
+      - echo "pre_build step"
+  build:
+    commands:
+      - echo "run npm test here"
+  post_build:
+    commands:
+      - echo "post_build step"
+artifacts:
+  files:
+    - '**/*'

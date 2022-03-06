@@ -1,0 +1,17 @@
+version: 0.1
+phases:
+  pre_build:
+    commands:
+      - echo logging in to AWS ECR...
+      - $(aws ecr get-login --no-include-email --region us-west-1)
+  build:
+    commands:
+      - echo build Docker image on `date`
+      - cd ../
+      - docker build -t terraform-app:latest .
+      - docker tag terraform-app:latest 082814126327.dkr.ecr.us-west-1.amazonaws.com/lf-ecr-repository/terraform-app:latest
+  post_build:
+    commands:
+      - echo build Docker image complete `date`
+      - echo push latest Docker images to ECR...
+      - docker push 082814126327.dkr.ecr.us-west-1.amazonaws.com/lf-ecr-repository/terraform-app:latest
